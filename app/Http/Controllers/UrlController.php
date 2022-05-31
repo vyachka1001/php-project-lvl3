@@ -40,8 +40,11 @@ class UrlController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->input('url');
-        $name = $data['name'];
+        $validatedData = $request->validate([
+            'url.name' => 'required|max:255'
+        ]);
+
+        $name = $validatedData['url']['name'];
 
         $record = DB::table('urls')
             ->select('id')
@@ -54,6 +57,8 @@ class UrlController extends Controller
                 'name' => $name,
                 'created_at' => $dateTime
             ]);
+
+            flash('User has been added')->success();
         } else {
             $id = $record[0]->id;
         }
