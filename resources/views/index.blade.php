@@ -6,20 +6,29 @@
 
         <title>Page analyzer</title>
 
-        <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     </head>
-    <body class="antialiased">
+    <body>
         <main>
             <div class="container">
                 <h1>Page analyzer</h1>
                 <form action="/urls" method="POST">
                     @csrf
-                    <input type="text" name="url[name]" placeholder="https://example.com">
+                    <input type="text" placeholder="https://example.com" name="url[name]">
                     <input type="submit" value="Check">
                 </form>
             </div>
         </main>
+
+        @if ($errors->any())
+            <div>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </body>
 </html>
