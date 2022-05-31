@@ -6,11 +6,12 @@
 
         <title>Laravel</title>
 
-        <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     </head>
-    <body class="antialiased">
+    <body>
+        @include('flash::message')
         <h1>Сайт {{ $url->name }}</h1>
         <p>id = {{ $url->id }}</p>
         <p>name = {{ $url->name }}</p>
