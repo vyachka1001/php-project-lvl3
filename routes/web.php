@@ -19,5 +19,5 @@ Route::get('/', function () {
 });
 
 Route::get('/urls', [UrlController::class, 'index']);
-Route::post('/urls', [UrlController::class, 'add']);
+Route::post('/urls', [UrlController::class, 'store']);
 Route::get('/urls/{id}', [UrlController::class, 'show'])->name('showUrl');
