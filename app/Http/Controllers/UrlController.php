@@ -15,7 +15,11 @@ class UrlController extends Controller
      */
     public function index()
     {
-        //
+        $urls = DB::table('urls')
+            ->select('*')
+            ->get();
+        
+        return view('url.index', ['urls' => $urls]);
     }
 
     /**
@@ -39,10 +43,6 @@ class UrlController extends Controller
         $data = $request->input('url');
         $name = $data['name'];
 
-        $validated = $request->validate([
-            'url[name]' => 'required|max:255'
-        ]);
-
         $record = DB::table('urls')
             ->select('id')
             ->where('name', $name)
@@ -58,7 +58,7 @@ class UrlController extends Controller
             $id = $record[0]->id;
         }
 
-        return redirect()->route('showUrl', ['id' => $id]);
+        return redirect()->route('urls.show', ['id' => $id]);
     }
 
     /**
@@ -69,7 +69,9 @@ class UrlController extends Controller
      */
     public function show($id)
     {
-        return view('show', ['id' => $id]);
+        $url = DB::table('urls')->find($id);
+
+        return view('url.show', ['url' => $url]);
     }
 
     /**
