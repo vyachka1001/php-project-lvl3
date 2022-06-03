@@ -16,6 +16,6 @@
         <p>id = {{ $url->id }}</p>
         <p>name = {{ $url->name }}</p>
         <p>created_at = {{ $url->created_at }}</p>
-        <a href="{{ route('urls') }}">Сайты</a>
+        <a href="{{ route('urls.index') }}">Сайты</a>
     </body>
 </html>
