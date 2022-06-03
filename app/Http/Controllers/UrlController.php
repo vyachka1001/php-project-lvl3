@@ -35,14 +35,17 @@ class UrlController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request contains url info from form
+     * 
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'url.name' => 'required|max:255'
-        ]);
+        $validatedData = $request->validate(
+            [
+                'url.name' => 'required|max:255'
+            ]
+        );
 
         $name = $validatedData['url']['name'];
 
@@ -53,14 +56,16 @@ class UrlController extends Controller
 
         if (empty($record[0])) {
             $dateTime = Carbon::now()->toDateTimeString();
-            $id = DB::table('urls')->insertGetId([
-                'name' => $name,
-                'created_at' => $dateTime
-            ]);
-
-            flash('User has been added')->success();
+            $id = DB::table('urls')->insertGetId(
+                [
+                    'name' => $name,
+                    'created_at' => $dateTime
+                ]
+            );
+            flash('Url has been added')->success();
         } else {
             $id = $record[0]->id;
+            flash('Url is already exists');
         }
 
         return redirect()->route('urls.show', ['id' => $id]);
@@ -69,7 +74,8 @@ class UrlController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id id of the showing url
+     * 
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -82,7 +88,8 @@ class UrlController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     * 
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -93,8 +100,9 @@ class UrlController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * 
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -105,7 +113,8 @@ class UrlController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
+     * 
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
