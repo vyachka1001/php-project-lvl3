@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('urls', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->timestamp('created_at');
-        });
+        Schema::create(
+            'urls', function (Blueprint $table) {
+                $table->id();
+                $table->string('name');
+                $table->timestamp('created_at');
+            }
+        );
     }
 
     /**
