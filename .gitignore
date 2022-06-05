@@ -12,4 +12,8 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+<<<<<<< HEAD
 /build
+=======
+/build
+>>>>>>> 2c3d058be38c1ef37585dd450a1a417cb96debf2
