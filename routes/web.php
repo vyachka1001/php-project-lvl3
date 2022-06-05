@@ -14,10 +14,12 @@ use App\Http\Controllers\UrlController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get(
+    '/', function () {
+        return view('index');
+    }
+);
 
-Route::get('/urls', [UrlController::class, 'index'])->name('urls');
-Route::post('/urls', [UrlController::class, 'store']);
+Route::get('/urls', [UrlController::class, 'index'])->name('urls.index');
+Route::post('/urls', [UrlController::class, 'store'])->name('urls.store');
 Route::get('/urls/{id}', [UrlController::class, 'show'])->name('urls.show');
