@@ -6,29 +6,21 @@
 
         <title>Page analyzer</title>
 
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     </head>
     <body>
+        @include('flash::message')
         <main>
-            <div class="container">
+            {{-- <div class="container"> --}}
                 <h1>Page analyzer</h1>
                 <form action="/urls" method="POST">
                     @csrf
                     <input type="text" placeholder="https://example.com" name="url[name]">
                     <input type="submit" value="Check">
                 </form>
-            </div>
+            {{-- </div> --}}
         </main>
-
-        @if ($errors->any())
-            <div>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     </body>
 </html>
