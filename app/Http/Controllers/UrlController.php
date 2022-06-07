@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class UrlController extends Controller
 {
@@ -41,14 +42,17 @@ class UrlController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate(
+        $validator = Validator::make($request->all(), 
             [
                 'url.name' => 'required|max:255'
             ]
         );
+        if ($validator->fails()) {
+            flash('Input field is required')->error();
+            return redirect()->back()->withInput();
+        }
 
-        $name = $validatedData['url']['name'];
-
+        $name = $request['url']['name'];
         $record = DB::table('urls')
             ->select('id')
             ->where('name', $name)
