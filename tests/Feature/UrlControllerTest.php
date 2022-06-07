@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class UrlControllerTest extends TestCase
 {
@@ -26,11 +27,22 @@ class UrlControllerTest extends TestCase
      */
     public function testStore()
     {
-        // $response = $this->get('/');
-        // $response = $this->post(route('urls.store'), );
-        // $response->assertRedirect(route('urls.show'));
-        // $response->assertSessionHasNoErrors();
+        $faker = \Faker\Factory::create();
+        $email = $faker->email();
+        $response = $this->post(route('urls.store'), [
+            'url' => [
+                'name' => $email
+            ]
+        ]);
+        $this->assertDatabaseHas('urls', ['name' => $email]);
+    
+        $record = DB::table('urls')
+            ->select('id')
+            ->where('name', $email)
+            ->get();
+        $id = $record[0]->id;
 
-        // $this->assertDatabaseHas('urls', );
+        $response->assertRedirect(route('urls.show', ['id' => $id]));
+        $response->assertSessionHasNoErrors();
     }
 }
