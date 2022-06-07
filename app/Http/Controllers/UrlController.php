@@ -52,7 +52,7 @@ class UrlController extends Controller
             return redirect()->back()->withInput();
         }
 
-        $name = $request['url']['name'];
+        $name = $request->input('url.name');
         $record = DB::table('urls')
             ->select('id')
             ->where('name', $name)
