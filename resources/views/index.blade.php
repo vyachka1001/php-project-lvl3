@@ -15,7 +15,7 @@
         <main>
             {{-- <div class="container"> --}}
                 <h1>Page analyzer</h1>
-                <form action="/urls" method="POST">
+                <form action="{{ route('urls.store')}} " method="POST">
                     @csrf
                     <input type="text" placeholder="https://example.com" name="url[name]">
                     <input type="submit" value="Check">
