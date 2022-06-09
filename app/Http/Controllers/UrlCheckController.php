@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class UrlCheckController extends Controller
 {
@@ -30,11 +32,25 @@ class UrlCheckController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param int $urlId id of the url under checking
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $urlId)
     {
-        return redirect('/');
+        $dateTime = Carbon::now()->toDateTimeString();
+        DB::table('url_checks')->insert(
+            [
+                'url_id' => $urlId,
+                'created_at' => $dateTime,
+                'status_code' => 0,
+                'h1' => 'h1',
+                'title' => 'title',
+                'description' => 'description'
+            ]
+        );
+
+        return \redirect()->route('urls.show', ['id' => $urlId]);
     }
 
     /**
