@@ -4,30 +4,31 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Сайты</title>
+        <title>Sites</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     </head>
     <body >
         <main>
-            <h1>Сайты</h1>
+            <h1>Sites</h1>
             <div>
-                <table class="table">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <td>id</td>
                             <td>name</td>
-                            <td>created_at</td>
+                            <td>last check</td>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($urls as $url)
                             <tr>
-                                <td>{{$url->id}}</td>
-                                <td><a href="{{route('urls.show', $url->id)}}">{{$url->name}}</a></td>
-                                <td>{{$url->created_at}}</td>
+                                <td>{{ $url->id }}</td>
+                                <td><a href="{{ route('urls.show', $url->id) }}">{{ $url->name }}</a></td>
+                                <td>{{ $url->lastCheck }}</td>
                             </tr>
                         @endforeach
                     </tbody>
