@@ -30,7 +30,7 @@ class UrlController extends Controller
      */
     public function create()
     {
-        //
+        return view('index');
     }
 
     /**
