@@ -28,17 +28,17 @@ class UrlControllerTest extends TestCase
     public function testStore()
     {
         $faker = \Faker\Factory::create();
-        $email = $faker->email();
+        $url = $faker->url();
         $response = $this->post(route('urls.store'), [
             'url' => [
-                'name' => $email
+                'name' => $url
             ]
         ]);
-        $this->assertDatabaseHas('urls', ['name' => $email]);
+        $this->assertDatabaseHas('urls', ['name' => $url]);
     
         $record = DB::table('urls')
             ->select('id')
-            ->where('name', $email)
+            ->where('name', $url)
             ->get();
         $id = $record[0]->id;
 
