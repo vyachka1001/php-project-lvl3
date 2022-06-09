@@ -12,10 +12,45 @@
     </head>
     <body>
         @include('flash::message')
-        <h1>Сайт {{ $url->name }}</h1>
-        <p>id = {{ $url->id }}</p>
-        <p>name = {{ $url->name }}</p>
-        <p>created_at = {{ $url->created_at }}</p>
-        <a href="{{ route('urls.index') }}">Сайты</a>
+        <h1>Site {{ $url->name }}</h1>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <td>id</td>
+                    <td>{{ $url->id }}</td>
+                </tr>
+                <tr>
+                    <td>name</td>
+                    <td>{{ $url->name }}</td>
+                </tr>
+                <tr>
+                    <td>created_at</td>
+                    <td>{{ $url->created_at }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="{{ route('urls.index') }}">Sites</a>
+
+        <h2>Checks</h2>
+        <form action="{{ route('url_checks.store', ['id' => $url->id]) }}" method="POST">
+            @csrf
+            <input type="submit" class="btn btn-primary" value="Execute check">
+        </form>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>id</td>
+                    <td>created_at</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($checks as $check)
+                    <tr>
+                        <td>{{ $check->id }}</td>
+                        <td>{{ $check->created_at }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </body>
 </html>
