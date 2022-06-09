@@ -18,7 +18,14 @@ class UrlController extends Controller
     {
         $urls = DB::table('urls')
             ->select('*')
+            ->orderBy('id', 'asc')
             ->get();
+        
+        foreach ($urls as $url) {
+            $url->lastCheck = DB::table('url_checks')
+                ->where('url_id', $url->id)
+                ->max('created_at');
+        }
         
         return view('url.index', ['urls' => $urls]);
     }
@@ -84,9 +91,16 @@ class UrlController extends Controller
      */
     public function show($id)
     {
-        $url = DB::table('urls')->find($id);
+        $url = DB::table('urls')->select('*')
+            ->where('id', $id)
+            ->get();
 
-        return view('url.show', ['url' => $url]);
+        $checks = DB::table('url_checks')->select('*')
+            ->where('url_id', $id)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view('url.show', ['url' => $url[0], 'checks' => $checks]);
     }
 
     /**
