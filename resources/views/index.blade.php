@@ -18,7 +18,7 @@
                 <form action="{{ route('urls.store')}} " method="POST">
                     @csrf
                     <input type="text" placeholder="https://example.com" name="url[name]">
-                    <input type="submit" value="Check">
+                    <input type="submit" class="btn btn-primary" value="Check">
                 </form>
             {{-- </div> --}}
         </main>
