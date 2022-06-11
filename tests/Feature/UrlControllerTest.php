@@ -21,7 +21,7 @@ class UrlControllerTest extends TestCase
     }
 
     /**
-     * Testing index function.
+     * Testing store function.
      *
      * @return void
      */
