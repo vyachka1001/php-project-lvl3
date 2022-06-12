@@ -25,6 +25,13 @@ class UrlController extends Controller
             $url->lastCheck = DB::table('url_checks')
                 ->where('url_id', $url->id)
                 ->max('created_at');
+            
+            $dbInstanceStatusCode = DB::table('url_checks')
+                ->select('status_code')
+                ->where('created_at', $url->lastCheck)
+                ->get();
+
+            $url->statusCode = $dbInstanceStatusCode[0]->status_code ?? null;
         }
         
         return view('url.index', ['urls' => $urls]);
