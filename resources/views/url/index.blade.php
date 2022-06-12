@@ -20,7 +20,8 @@
                         <tr>
                             <td>id</td>
                             <td>name</td>
-                            <td>last check</td>
+                            <td>last_check</td>
+                            <td>status_code</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +30,7 @@
                                 <td>{{ $url->id }}</td>
                                 <td><a href="{{ route('urls.show', $url->id) }}">{{ $url->name }}</a></td>
                                 <td>{{ $url->lastCheck }}</td>
+                                <td>{{ $url->statusCode }}</td>
                             </tr>
                         @endforeach
                     </tbody>

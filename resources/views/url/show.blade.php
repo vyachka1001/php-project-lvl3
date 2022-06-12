@@ -41,6 +41,7 @@
                 <tr>
                     <td>id</td>
                     <td>created_at</td>
+                    <td>status_code</td>
                 </tr>
             </thead>
             <tbody>
@@ -48,6 +49,7 @@
                     <tr>
                         <td>{{ $check->id }}</td>
                         <td>{{ $check->created_at }}</td>
+                        <td>{{ $check->status_code }}</td>
                     </tr>
                 @endforeach
             </tbody>
