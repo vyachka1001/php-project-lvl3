@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Http;
 
 class UrlCheckController extends Controller
 {
@@ -39,11 +40,12 @@ class UrlCheckController extends Controller
     public function store(Request $request, $urlId)
     {
         $dateTime = Carbon::now()->toDateTimeString();
+        $status = Http::get('https://vk.com')->status();
         DB::table('url_checks')->insert(
             [
                 'url_id' => $urlId,
                 'created_at' => $dateTime,
-                'status_code' => 0,
+                'status_code' => $status,
                 'h1' => 'h1',
                 'title' => 'title',
                 'description' => 'description'
