@@ -16,10 +16,7 @@ class UrlController extends Controller
      */
     public function index()
     {
-        $urls = DB::table('urls')
-            ->select('*')
-            ->orderBy('id', 'asc')
-            ->get();
+        $urls = DB::table('urls')->paginate(1);
         
         foreach ($urls as $url) {
             $url->lastCheck = DB::table('url_checks')
