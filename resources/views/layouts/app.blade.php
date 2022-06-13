@@ -38,6 +38,8 @@
             </nav>
         </header>
 
+        @include('flash::message')
+
         <main class="flex-grow-1">
             <div class="container-lg">
                 <div class="container">
