@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "alrik11es/cowsayphp": "^1.2",
         "guzzlehttp/guzzle": "^7.4",
+        "imangazaliev/didom": "^2.0",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
