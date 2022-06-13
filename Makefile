@@ -8,8 +8,8 @@ setup:
 	touch database/database.pgsql
 	php artisan migrate
 	php artisan db:seed
-	# npm ci
-	# npm run dev
+	npm ci
+	npm run dev
 
 watch:
 	npm run watch
