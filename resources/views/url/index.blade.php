@@ -1,41 +1,30 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Sites</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-    </head>
+@extends('layouts.app')
+@section('content')
     <body >
-        <main>
-            <h1>Sites</h1>
-            <div>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <td>id</td>
-                            <td>name</td>
-                            <td>last_check</td>
-                            <td>status_code</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($urls as $url)
-                            <tr>
-                                <td>{{ $url->id }}</td>
-                                <td><a href="{{ route('urls.show', $url->id) }}">{{ $url->name }}</a></td>
-                                <td>{{ $url->lastCheck }}</td>
-                                <td>{{ $url->statusCode }}</td>
+        <main class="flex-grow-1">
+            <div class="container-lg">
+                <h1 class="mt-5 mb-3">Сайты</h1>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover text-nowrap">
+                        <tbody>
+                            <tr> 
+                                <th>ID</th>
+                                <th>Имя</th>
+                                <th>Последняя проверка</th>
+                                <th>Код ответа</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            <div>
+                            @foreach($urls as $url)
+                                <tr>
+                                    <td>{{ $url->id }}</td>
+                                    <td><a href="{{ route('urls.show', $url->id) }}">{{ $url->name }}</a></td>
+                                    <td>{{ $url->lastCheck }}</td>
+                                    <td>{{ $url->statusCode }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </main>
     </body>
-</html>
+@endsection
