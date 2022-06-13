@@ -51,15 +51,14 @@ class UrlCheckController extends Controller
             $response = Http::get($name);
             flash('Страница успешно проверена');
             $urlInfo = self::getUrlInfo($name);
-            dump($urlInfo);
             DB::table('url_checks')->insert(
                 [
                     'url_id' => $urlId,
                     'created_at' => Carbon::now()->toDateTimeString(),
                     'status_code' => $response->status(),
-                    'h1' => $urlInfo->h1,
-                    'title' => $urlInfo->title,
-                    'description' => $urlInfo->description
+                    'h1' => $urlInfo->h1 ?? null,
+                    'title' => $urlInfo->title ?? null,
+                    'description' => $urlInfo->description ?? null
                 ]
             );
         } catch (\Exception $e) {
@@ -78,8 +77,12 @@ class UrlCheckController extends Controller
      */
     private function getUrlInfo($url)
     {
-        $document = new Document($url, true);
         $info = new \stdClass();
+        try {
+            $document = new Document($url, true);
+        } catch(\Exception $e) {
+            return $info;
+        }
 
         $info->h1 = $document->find('h1')[0]->text();
         $info->title = $document->find('title')[0]->text();
