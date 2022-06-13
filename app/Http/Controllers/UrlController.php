@@ -56,17 +56,17 @@ class UrlController extends Controller
      */
     public function store(Request $request)
     {
+        $name = $request->input('url.name');
         $validator = Validator::make($request->all(), 
             [
                 'url.name' => 'required|max:255'
             ]
         );
-        if ($validator->fails()) {
-            flash('Input field is required')->error();
+        if ($validator->fails() || empty(parse_url($name, PHP_URL_SCHEME))) {
+            flash('Неккоректный URL')->error();
             return redirect()->back()->withInput();
         }
 
-        $name = $request->input('url.name');
         $record = DB::table('urls')
             ->select('id')
             ->where('name', $name)
@@ -80,10 +80,10 @@ class UrlController extends Controller
                     'created_at' => $dateTime
                 ]
             );
-            flash('Url has been added')->success();
+            flash('Страница успешно добавлена')->success();
         } else {
             $id = $record[0]->id;
-            flash('Url is already exists');
+            flash('Страница уже существует');
         }
 
         return redirect()->route('urls.show', ['id' => $id]);
