@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-@include('flash::message')
     <main class="flex-grow-1">
         <div class="container-lg mt-3">
             <div class="row">
