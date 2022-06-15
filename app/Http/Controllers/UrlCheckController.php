@@ -46,10 +46,9 @@ class UrlCheckController extends Controller
         ->get();
 
         $name = $url[0]->name;
-        
+
         try {
             $response = Http::get($name);
-            flash('Страница успешно проверена');
             $urlInfo = self::getUrlInfo($name);
             DB::table('url_checks')->insert(
                 [
@@ -61,6 +60,7 @@ class UrlCheckController extends Controller
                     'description' => $urlInfo->description ?? null
                 ]
             );
+            flash('Страница успешно проверена');
         } catch (\Exception $e) {
             flash($e->getMessage())->error();
         }
@@ -84,9 +84,10 @@ class UrlCheckController extends Controller
             return $info;
         }
 
-        $info->h1 = $document->find('h1')[0]->text();
-        $info->title = $document->find('title')[0]->text();
-        $info->description = $document->find('meta[name="description"]')[0]->getAttribute('content');
+        $info->h1 = $document->has('h1') ? $document->find('h1')[0]->text() : null;
+        $info->title = $document->has('title') ? $document->find('title')[0]->text() : null;
+        $info->description = $document->has('meta[name="description"]') ? 
+            $document->find('meta[name="description"]')[0]->getAttribute('content') : null;
 
         return $info;
     }
