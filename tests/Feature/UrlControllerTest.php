@@ -9,8 +9,24 @@ use Illuminate\Support\Facades\DB;
 
 class UrlControllerTest extends TestCase
 {
+    private int $urlId;
+    private $faker;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->faker = \Faker\Factory::create();
+        $this->urlId = DB::table('urls')->insertGetId(
+            [
+                'name' => $this->faker->url(),
+                'created_at' => Carbon::now()->toDateTimeString()
+            ]
+        );
+    }
+
     /**
-     * Test of index function.
+     * Testing index function.
      *
      * @return void
      */
@@ -27,22 +43,26 @@ class UrlControllerTest extends TestCase
      */
     public function testStore()
     {
-        $faker = \Faker\Factory::create();
-        $url = $faker->url();
+        $url = $this->faker->url();
         $response = $this->post(route('urls.store'), [
             'url' => [
                 'name' => $url
             ]
         ]);
-        $this->assertDatabaseHas('urls', ['name' => $url]);
-    
-        $record = DB::table('urls')
-            ->select('id')
-            ->where('name', $url)
-            ->get();
-        $id = $record[0]->id;
 
-        $response->assertRedirect(route('urls.show', ['id' => $id]));
+        $this->assertDatabaseHas('urls', ['name' => $url]);
+        $response->assertRedirect();
         $response->assertSessionHasNoErrors();
+    }
+
+    /**
+     * Testing show function.
+     *
+     * @return void
+     */
+    public function testShow()
+    {
+        $response= $this->get(route('urls.show', ['id' => $this->urlId]));
+        $response->assertOk();
     }
 }
