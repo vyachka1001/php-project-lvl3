@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 
 class UrlController extends Controller
 {
+    const URLS_PER_PAGE = 15;
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +17,7 @@ class UrlController extends Controller
      */
     public function index()
     {
-        $urls = DB::table('urls')->paginate(1);
+        $urls = DB::table('urls')->paginate(self::URLS_PER_PAGE);
         
         foreach ($urls as $url) {
             $url->lastCheck = DB::table('url_checks')
