@@ -11,26 +11,6 @@ use DiDom\Document;
 class UrlCheckController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -49,7 +29,7 @@ class UrlCheckController extends Controller
 
         try {
             $response = Http::get($name);
-            $urlInfo = self::getUrlInfo($name);
+            $urlInfo = self::getUrlInfo($response->body());
             DB::table('url_checks')->insert(
                 [
                     'url_id' => $urlId,
@@ -71,69 +51,23 @@ class UrlCheckController extends Controller
     /**
      * Collect info about corresponding url.
      *
-     * @param  string  $url url to research
+     * @param  string  $body response body to research
      * 
      * @return \stdClass
      */
-    private function getUrlInfo($url)
+    private function getUrlInfo($body)
     {
         $info = new \stdClass();
         try {
-            $document = new Document($url, true);
+            $document = new Document($body);
         } catch(\Exception $e) {
             return $info;
         }
 
-        $info->h1 = $document->has('h1') ? $document->find('h1')[0]->text() : null;
-        $info->title = $document->has('title') ? $document->find('title')[0]->text() : null;
-        $info->description = $document->has('meta[name="description"]') ? 
-            $document->find('meta[name="description"]')[0]->getAttribute('content') : null;
+        $info->h1 = optional($document->first('h1'))->text();
+        $info->title = optional($document->first('title'))->text();
+        $info->description = optional($document->first('meta[name="description"]'))->getAttribute('content');
 
         return $info;
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
