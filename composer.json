@@ -15,8 +15,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
-        "nesbot/carbon": "^2.58",
-        "twbs/bootstrap": "5.2.0-beta1"
+        "nesbot/carbon": "^2.58"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
