@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class UrlControllerTest extends TestCase
 {
     private int $urlId;
-    private $faker;
+    private \Faker\Generator $faker;
 
     protected function setUp(): void
     {
