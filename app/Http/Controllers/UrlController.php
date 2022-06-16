@@ -18,12 +18,11 @@ class UrlController extends Controller
     public function index()
     {
         $urls = DB::table('urls')->paginate(self::URLS_PER_PAGE);
-        
         foreach ($urls as $url) {
             $url->lastCheck = DB::table('url_checks')
                 ->where('url_id', $url->id)
                 ->max('created_at');
-            
+
             $dbInstanceStatusCode = DB::table('url_checks')
                 ->select('status_code')
                 ->where('created_at', $url->lastCheck)
@@ -31,7 +30,7 @@ class UrlController extends Controller
 
             $url->statusCode = $dbInstanceStatusCode[0]->status_code ?? null;
         }
-        
+
         return view('url.index', ['urls' => $urls]);
     }
 
@@ -39,13 +38,14 @@ class UrlController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request contains url info from form
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $name = $request->input('url.name');
-        $validator = Validator::make($request->all(), 
+        $validator = Validator::make(
+            $request->all(),
             [
                 'url.name' => 'required|url|max:255'
             ]
@@ -81,7 +81,7 @@ class UrlController extends Controller
      * Display the specified resource.
      *
      * @param int $id id of the showing url
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)

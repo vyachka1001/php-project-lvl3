@@ -15,7 +15,7 @@ class UrlCheckController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param int $urlId id of the url under checking
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, $urlId)
@@ -52,7 +52,7 @@ class UrlCheckController extends Controller
      * Collect info about corresponding url.
      *
      * @param  string  $body response body to research
-     * 
+     *
      * @return \stdClass
      */
     private function getUrlInfo($body)
@@ -60,7 +60,7 @@ class UrlCheckController extends Controller
         $info = new \stdClass();
         try {
             $document = new Document($body);
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return $info;
         }
 
