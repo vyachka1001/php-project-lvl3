@@ -58,7 +58,8 @@ class UrlController extends Controller
         );
         if ($validator->fails() || empty(parse_url($name, PHP_URL_SCHEME))) {
             flash('Неккоректный URL')->error();
-            return redirect(route('welcome'))->withErrors($validator)->withInput();
+            return redirect(route('welcome'))
+                ->withInput();
         }
 
         $record = DB::table('urls')
