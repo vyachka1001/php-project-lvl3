@@ -35,9 +35,9 @@ class UrlCheckController extends Controller
                     'url_id' => $urlId,
                     'created_at' => Carbon::now()->toDateTimeString(),
                     'status_code' => $response->status(),
-                    'h1' => $urlInfo->h1 ?? '',
-                    'title' => $urlInfo->title ?? '',
-                    'description' => $urlInfo->description ?? ''
+                    'h1' => $urlInfo->h1 ?? ' ',
+                    'title' => $urlInfo->title ?? ' ',
+                    'description' => $urlInfo->description ?? ' '
                 ]
             );
             flash('Страница успешно проверена');
