@@ -17,27 +17,18 @@ class UrlController extends Controller
      */
     public function index()
     {
-        $urls = DB::table('urls')->paginate(self::URLS_PER_PAGE);
-        $completedUrls = array_map(
-            function ($url) {
-                $newUrl = new \stdClass();
-                $newUrl->lastCheck = DB::table('url_checks')
-                    ->where('url_id', $url->id)
-                    ->max('created_at');
+        $urls = DB::table('urls')
+            ->oldest()
+            ->paginate(self::URLS_PER_PAGE);
 
-                $dbInstanceStatusCode = DB::table('url_checks')
-                    ->select('status_code')
-                    ->where('created_at', $newUrl->lastCheck)
-                    ->get();
+        $lastChecks = DB::table('url_checks')
+            ->orderBy('url_id')
+            ->latest()
+            ->distinct('url_id')
+            ->get()
+            ->keyBy('url_id');
 
-                $newUrl->statusCode = $dbInstanceStatusCode[0]->status_code ?? null;
-
-                return $newUrl;
-            },
-            $urls
-        );
-
-        return view('url.index', ['urls' => $completedUrls]);
+        return view('url.index', ['urls' => $urls, 'lastChecks' => $lastChecks]);
     }
 
     /**
@@ -58,7 +49,8 @@ class UrlController extends Controller
         );
         if ($validator->fails() || empty(parse_url($name, PHP_URL_SCHEME))) {
             flash('Неккоректный URL')->error();
-            return redirect(route('welcome'))
+            return redirect()->route('welcome')
+                ->withErrors($validator)
                 ->withInput();
         }
 
