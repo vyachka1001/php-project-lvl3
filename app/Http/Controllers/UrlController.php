@@ -47,12 +47,12 @@ class UrlController extends Controller
         $name = $request->input('url.name');
         $validator = Validator::make($request->all(), 
             [
-                'url.name' => 'required|max:255'
+                'url.name' => 'required|url|max:255'
             ]
         );
         if ($validator->fails() || empty(parse_url($name, PHP_URL_SCHEME))) {
             flash('Неккоректный URL')->error();
-            return redirect()->back()->withInput();
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $record = DB::table('urls')
