@@ -15,7 +15,9 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
-        "nesbot/carbon": "^2.58"
+        "nesbot/carbon": "^2.58",
+        "nunomaduro/larastan": "^2.1",
+        "phpstan/phpstan": "^1.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -41,6 +43,7 @@
     "scripts": {
         "phpcs": "phpcs",
         "phpcbf": "phpcbf",
+        "phpstan": "phpstan",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
