@@ -24,7 +24,7 @@ class UrlRepository
         return $record[0]->id;
     }
 
-    public function save($name): bool
+    public function save(string $name): bool
     {
         $record = DB::table('urls')
             ->select('id')
@@ -46,14 +46,14 @@ class UrlRepository
         return true;
     }
 
-    public function findById($id)
+    public function findById(int $id)
     {
         return DB::table('urls')->select('*')
             ->where('id', $id)
             ->get();
     }
 
-    public function findNameById($id)
+    public function findNameById(int $id)
     {
         $url = DB::table('urls')
             ->select('name')

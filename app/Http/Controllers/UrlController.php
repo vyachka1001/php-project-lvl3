@@ -9,8 +9,8 @@ use App\Repositories\UrlCheckRepository;
 
 class UrlController extends Controller
 {
-    private $urlRepository;
-    private $urlCheckRepository;
+    private UrlRepository $urlRepository;
+    private UrlCheckRepository $urlCheckRepository;
 
     const URLS_PER_PAGE = 15;
 

@@ -11,8 +11,8 @@ use App\Dto\Response\UrlInfoResponse;
 
 class UrlCheckController extends Controller
 {
-    private $urlRepository;
-    private $urlCheckRepository;
+    private UrlRepository $urlRepository;
+    private UrlCheckRepository $urlCheckRepository;
 
     public function __construct(UrlRepository $urlRepository, UrlCheckRepository $urlCheckRepository)
     {
@@ -46,11 +46,11 @@ class UrlCheckController extends Controller
      * Collect info about corresponding url.
      *
      * @param string $name url to research
-     * @param string $urlId url's id
+     * @param int $urlId url's id
      *
      * @return \UrlInfoResponse
      */
-    private function getUrlInfo($name, $urlId)
+    private function getUrlInfo($name, $urlId): UrlInfoResponse
     {
         $response = Http::get($name);
         $document = new Document($response->body());

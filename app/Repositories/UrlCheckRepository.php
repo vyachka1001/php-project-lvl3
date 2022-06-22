@@ -18,7 +18,7 @@ class UrlCheckRepository
             ->keyBy('url_id');
     }
 
-    public function findById($id)
+    public function findById(int $id)
     {
         return DB::table('url_checks')->select('*')
             ->where('url_id', $id)
