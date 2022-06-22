@@ -3,13 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
+use App\Repositories\UrlRepository;
+use App\Repositories\UrlCheckRepository;
 
 class UrlController extends Controller
 {
+    private $urlRepository;
+    private $urlCheckRepository;
+
     const URLS_PER_PAGE = 15;
+
+    public function __construct(UrlRepository $urlRepository, UrlCheckRepository $urlCheckRepository)
+    {
+        $this->urlRepository = $urlRepository;
+        $this->urlCheckRepository = $urlCheckRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,16 +27,8 @@ class UrlController extends Controller
      */
     public function index()
     {
-        $urls = DB::table('urls')
-            ->oldest()
-            ->paginate(self::URLS_PER_PAGE);
-
-        $lastChecks = DB::table('url_checks')
-            ->orderBy('url_id')
-            ->latest()
-            ->distinct('url_id')
-            ->get()
-            ->keyBy('url_id');
+        $urls = $this->urlRepository->findPaginatedUrls(self::URLS_PER_PAGE);
+        $lastChecks = $this->urlCheckRepository->findLastUrlChecks();
 
         return view('url.index', ['urls' => $urls, 'lastChecks' => $lastChecks]);
     }
@@ -54,24 +56,14 @@ class UrlController extends Controller
                 ->withInput();
         }
 
-        $record = DB::table('urls')
-            ->select('id')
-            ->where('name', $name)
-            ->get();
-
-        if (empty($record[0])) {
-            $dateTime = Carbon::now()->toDateTimeString();
-            $id = DB::table('urls')->insertGetId(
-                [
-                    'name' => $name,
-                    'created_at' => $dateTime
-                ]
-            );
-            flash('Страница успешно добавлена')->success();
-        } else {
-            $id = $record[0]->id;
+        $isAdded = $this->urlRepository->save($name);
+        if (!$isAdded) {
             flash('Страница уже существует');
+        } else {
+            flash('Страница успешно добавлена')->success();
         }
+
+        $id = $this->urlRepository->findIdByName($name);
 
         return redirect()->route('urls.show', ['id' => $id]);
     }
@@ -85,14 +77,8 @@ class UrlController extends Controller
      */
     public function show($id)
     {
-        $url = DB::table('urls')->select('*')
-            ->where('id', $id)
-            ->get();
-
-        $checks = DB::table('url_checks')->select('*')
-            ->where('url_id', $id)
-            ->orderBy('id', 'desc')
-            ->get();
+        $url = $this->urlRepository->findById($id); 
+        $checks = $this->urlCheckRepository->findById($id); 
 
         return view('url.show', ['url' => $url[0], 'checks' => $checks]);
     }
