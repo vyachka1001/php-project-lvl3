@@ -48,7 +48,7 @@ class UrlCheckController extends Controller
      * @param string $name url to research
      * @param int $urlId url's id
      *
-     * @return \UrlInfoResponse
+     * @return UrlInfoResponse
      */
     private function getUrlInfo($name, $urlId): UrlInfoResponse
     {

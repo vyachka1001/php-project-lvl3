@@ -17,7 +17,7 @@ class UrlInfoResponse
      * @param string $title url's page title
      * @param string $description url's page description
      * @param int $status response's status code
-     * @param int $id url's id in database
+     * @param int $urlId url's id in database
      */
     public function __construct(?string $h1, ?string $title, ?string $description, int $status, int $urlId)
     {
