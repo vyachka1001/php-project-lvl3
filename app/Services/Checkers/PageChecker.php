@@ -26,6 +26,10 @@ class PageChecker
     {
         $name = $this->urlRepository->findNameById($urlId);
 
+        if (empty($name)) {
+            throw new \Exception('Name with current id does not exist');
+        }
+
         $response = Http::get($name);
         $document = new Document($response->body());
 

@@ -11,9 +11,9 @@ class UrlRepository
      * Returns oldest urls.
      * @param int $urlPerPage Count of returning urls. If count is more than records, returns all records.
      *
-     * @return \Illuminate\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function findPaginatedUrls(int $urlPerPage): \Illuminate\Pagination\LengthAwarePaginator
+    public function findPaginatedUrls(int $urlPerPage): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return DB::table('urls')
             ->oldest()
