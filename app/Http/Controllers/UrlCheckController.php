@@ -3,21 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use DiDom\Document;
-use App\Repositories\UrlRepository;
 use App\Repositories\UrlCheckRepository;
 use App\Dto\Response\UrlInfoResponse;
+use App\Services\Checkers\PageChecker;
 
 class UrlCheckController extends Controller
 {
-    private UrlRepository $urlRepository;
     private UrlCheckRepository $urlCheckRepository;
+    private PageChecker $pageChecker;
 
-    public function __construct(UrlRepository $urlRepository, UrlCheckRepository $urlCheckRepository)
+    public function __construct(UrlCheckRepository $urlCheckRepository, PageChecker $pageChecker)
     {
-        $this->urlRepository = $urlRepository;
         $this->urlCheckRepository = $urlCheckRepository;
+        $this->pageChecker = $pageChecker;
     }
 
     /**
@@ -30,9 +28,8 @@ class UrlCheckController extends Controller
      */
     public function store(Request $request, $urlId)
     {
-        $name = $this->urlRepository->findNameById($urlId);
         try {
-            $urlInfo = $this->getUrlInfo($name, $urlId);
+            $urlInfo = $this->pageChecker->getUrlInfo($urlId);
             $this->urlCheckRepository->save($urlInfo);
             flash('Страница успешно проверена');
         } catch (\Exception $e) {
@@ -40,25 +37,5 @@ class UrlCheckController extends Controller
         }
 
         return \redirect()->route('urls.show', ['id' => $urlId]);
-    }
-
-    /**
-     * Collect info about corresponding url.
-     *
-     * @param string $name url to research
-     * @param int $urlId url's id
-     *
-     * @return UrlInfoResponse
-     */
-    private function getUrlInfo($name, $urlId): UrlInfoResponse
-    {
-        $response = Http::get($name);
-        $document = new Document($response->body());
-
-        $h1 = optional($document->first('h1'))->text();
-        $title = optional($document->first('title'))->text();
-        $description = optional($document->first('meta[name="description"]'))->getAttribute('content');
-
-        return new UrlInfoResponse($h1, $title, $description, $response->status(), $urlId);
     }
 }
