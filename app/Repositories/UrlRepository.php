@@ -42,7 +42,7 @@ class UrlRepository
      * Inserts url into db.
      * Returns true, if data insertion is completed.
      *
-     * @param int $name Corresponding url.
+     * @param string $name Corresponding url.
      *
      * @return bool
      */

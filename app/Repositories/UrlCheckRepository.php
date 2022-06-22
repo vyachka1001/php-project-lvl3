@@ -28,7 +28,7 @@ class UrlCheckRepository
      * Returns checks for current url_id.
      * Returns empty collection if there are no checks.
      *
-     * @param int $urlId id of the url under checking
+     * @param int $id id of the url under checking
      *
      * @return \Illuminate\Support\Collection
      */
