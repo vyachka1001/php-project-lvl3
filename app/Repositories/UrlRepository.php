@@ -25,7 +25,7 @@ class UrlRepository
      * If there is no such name in db, returns null.
      *
      * @param string $name corresponding url's name.
-     * 
+     *
      * @return int|null
      */
     public function findIdByName(string $name): ?int
