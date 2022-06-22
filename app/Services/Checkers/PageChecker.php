@@ -9,7 +9,7 @@ use DiDom\Document;
 
 class PageChecker
 {
-    private  UrlRepository $urlRepository;
+    private UrlRepository $urlRepository;
 
     public function __construct(UrlRepository $urlRepository)
     {
