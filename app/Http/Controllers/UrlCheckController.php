@@ -46,7 +46,7 @@ class UrlCheckController extends Controller
      * Collect info about corresponding url.
      *
      * @param string $name url to research
-     * @param string $urlId url's id 
+     * @param string $urlId url's id
      *
      * @return \UrlInfoResponse
      */

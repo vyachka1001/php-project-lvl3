@@ -42,7 +42,7 @@ class UrlRepository
                 'created_at' => $dateTime
             ]
         );
-        
+
         return true;
     }
 

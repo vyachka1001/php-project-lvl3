@@ -77,8 +77,8 @@ class UrlController extends Controller
      */
     public function show($id)
     {
-        $url = $this->urlRepository->findById($id); 
-        $checks = $this->urlCheckRepository->findById($id); 
+        $url = $this->urlRepository->findById($id);
+        $checks = $this->urlCheckRepository->findById($id);
 
         return view('url.show', ['url' => $url[0], 'checks' => $checks]);
     }

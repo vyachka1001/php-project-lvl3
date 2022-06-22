@@ -14,7 +14,7 @@ class UrlInfoResponse
      * Create new UrlInfoRepsonse object.
      *
      * @param string $h1 url's page h1
-     * @param string $title url's page title 
+     * @param string $title url's page title
      * @param string $description url's page description
      * @param string $status response's status code
      * @param string $id url's id in database
