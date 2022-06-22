@@ -11,7 +11,7 @@ class UrlCheckRepository
     /**
      * Returns latests url checks.
      * Returns empty collection if there are no checks.
-     * 
+     *
      * @return \Illuminate\Support\Collection
      */
     public function findLastUrlChecks(): \Illuminate\Support\Collection
@@ -25,7 +25,7 @@ class UrlCheckRepository
     }
 
     /**
-     * Returns checks for current url_id. 
+     * Returns checks for current url_id.
      * Returns empty collection if there are no checks.
      *
      * @param int $urlId id of the url under checking

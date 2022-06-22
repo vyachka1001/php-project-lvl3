@@ -10,7 +10,7 @@ class UrlRepository
     /**
      * Returns oldest urls.
      * @param int $urlPerPage Count of returning urls. If count is more than records, returns all records.
-     * 
+     *
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function findPaginatedUrls(int $urlPerPage): \Illuminate\Pagination\LengthAwarePaginator
@@ -23,7 +23,7 @@ class UrlRepository
     /**
      * Returns id by corresponding name.
      * If there is no such name in db, returns null.
-     * 
+     *
      * @param string $name corresponding url's name.
      * 
      * @return int|null
@@ -41,9 +41,9 @@ class UrlRepository
     /**
      * Inserts url into db.
      * Returns true, if data insertion is completed.
-     * 
+     *
      * @param int $name Corresponding url.
-     * 
+     *
      * @return bool
      */
     public function save(string $name): bool
@@ -68,9 +68,9 @@ class UrlRepository
      /**
      * Returns record by corresponding id
      * Returns empty collection, if there is no such id.
-     * 
+     *
      * @param int $id Corresponding id.
-     * 
+     *
      * @return \Illuminate\Support\Collection
      */
     public function findById(int $id): \Illuminate\Support\Collection
@@ -83,9 +83,9 @@ class UrlRepository
     /**
      * Returns name by corresponding id.
      * If there is no such id in db, returns null.
-     * 
+     *
      * @param int $id corresponding url's id.
-     * 
+     *
      * @return string|null
      */
     public function findNameById(int $id): ?string
