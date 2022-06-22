@@ -71,13 +71,16 @@ class UrlRepository
      *
      * @param int $id Corresponding id.
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection<int, \stdClass>
      */
     public function findById(int $id): \Illuminate\Support\Collection
     {
-        return DB::table('urls')->select('*')
+        $record = DB::table('urls')->select('*')
             ->where('id', $id)
             ->get();
+        dump(($record[0]));
+
+        return $record;
     }
 
     /**

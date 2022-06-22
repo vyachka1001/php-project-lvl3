@@ -3,7 +3,6 @@ parameters:
         - app
 
     level: 9
-    checkGenericClassInNonGenericObjectType: false
 
 includes:
     - vendor/nunomaduro/larastan/extension.neon

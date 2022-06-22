@@ -12,7 +12,7 @@ class UrlCheckRepository
      * Returns latests url checks.
      * Returns empty collection if there are no checks.
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection<(int|string), mixed>
      */
     public function findLastUrlChecks(): \Illuminate\Support\Collection
     {
@@ -30,7 +30,7 @@ class UrlCheckRepository
      *
      * @param int $id id of the url under checking
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection<int, \stdClass>
      */
     public function findById(int $id): \Illuminate\Support\Collection
     {
