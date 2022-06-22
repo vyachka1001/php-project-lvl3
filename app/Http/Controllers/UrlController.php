@@ -23,9 +23,9 @@ class UrlController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(): \Illuminate\View\View
     {
         $urls = $this->urlRepository->findPaginatedUrls(self::URLS_PER_PAGE);
         $lastChecks = $this->urlCheckRepository->findLastUrlChecks();
@@ -38,9 +38,9 @@ class UrlController extends Controller
      *
      * @param \Illuminate\Http\Request $request contains url info from form
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $name = $request->input('url.name');
         $validator = Validator::make(
@@ -73,9 +73,9 @@ class UrlController extends Controller
      *
      * @param int $id id of the showing url
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(int $id): \Illuminate\View\View
     {
         $url = $this->urlRepository->findById($id);
         $checks = $this->urlCheckRepository->findById($id);

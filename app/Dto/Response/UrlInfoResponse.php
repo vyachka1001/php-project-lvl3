@@ -43,12 +43,12 @@ class UrlInfoResponse
         return $this->description;
     }
 
-    public function getStatus(): string
+    public function getStatus(): int
     {
         return $this->status;
     }
 
-    public function getUrlId(): string
+    public function getUrlId(): int
     {
         return $this->urlId;
     }

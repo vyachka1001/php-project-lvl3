@@ -24,9 +24,9 @@ class UrlCheckController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param int $urlId id of the url under checking
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, $urlId)
+    public function store(Request $request, int $urlId): \Illuminate\Http\RedirectResponse
     {
         try {
             $urlInfo = $this->pageChecker->getUrlInfo($urlId);

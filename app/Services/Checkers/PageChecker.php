@@ -22,7 +22,7 @@ class PageChecker
      *
      * @return UrlInfoResponse
      */
-    public function getUrlInfo($urlId): UrlInfoResponse
+    public function getUrlInfo(int $urlId): UrlInfoResponse
     {
         $name = $this->urlRepository->findNameById($urlId);
 

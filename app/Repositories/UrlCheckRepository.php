@@ -8,7 +8,13 @@ use App\Dto\Response\UrlInfoResponse;
 
 class UrlCheckRepository
 {
-    public function findLastUrlChecks()
+    /**
+     * Returns latests url checks.
+     * Returns empty collection if there are no checks.
+     * 
+     * @return \Illuminate\Support\Collection
+     */
+    public function findLastUrlChecks(): \Illuminate\Support\Collection
     {
         return DB::table('url_checks')
             ->orderBy('url_id')
@@ -18,7 +24,15 @@ class UrlCheckRepository
             ->keyBy('url_id');
     }
 
-    public function findById(int $id)
+    /**
+     * Returns checks for current url_id. 
+     * Returns empty collection if there are no checks.
+     *
+     * @param int $urlId id of the url under checking
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function findById(int $id): \Illuminate\Support\Collection
     {
         return DB::table('url_checks')->select('*')
             ->where('url_id', $id)
@@ -26,9 +40,17 @@ class UrlCheckRepository
             ->get();
     }
 
-    public function save(UrlInfoResponse $urlInfo)
+    /**
+     * Inserts corresponding info into db.
+     * Returns true, if data insertion is completed.
+     *
+     * @param UrlInfoResponse $urlInfo corresponding url info
+     *
+     * @return bool
+     */
+    public function save(UrlInfoResponse $urlInfo): bool
     {
-        DB::table('url_checks')->insert(
+        $result =  DB::table('url_checks')->insert(
             [
                 'url_id' => $urlInfo->getUrlId(),
                 'created_at' => Carbon::now()->toDateTimeString(),
@@ -38,5 +60,7 @@ class UrlCheckRepository
                 'description' => $urlInfo->getDescription()
             ]
         );
+
+        return $result;
     }
 }
