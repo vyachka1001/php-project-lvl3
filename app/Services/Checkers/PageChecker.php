@@ -4,16 +4,31 @@ namespace App\Services\Checkers;
 
 use App\Repositories\UrlRepository;
 use App\Dto\Response\UrlInfoResponse;
+use App\Repositories\UrlCheckRepository;
 use Illuminate\Support\Facades\Http;
 use DiDom\Document;
 
 class PageChecker
 {
     private UrlRepository $urlRepository;
+    private UrlCheckRepository $urlCheckRepository;
 
-    public function __construct(UrlRepository $urlRepository)
+    public function __construct(UrlRepository $urlRepository, UrlCheckRepository $urlCheckRepository)
     {
         $this->urlRepository = $urlRepository;
+        $this->urlCheckRepository = $urlCheckRepository;
+    }
+
+     /**
+     * Store new url check for corresponding url. Return bool, if check is stored, false otherwise.
+     * @param int $urlId url's id
+     *
+     * @return bool
+     */
+    public function createCheck(int $urlId): bool
+    {
+        $urlInfo = $this->getUrlInfo($urlId);
+        return $this->urlCheckRepository->save($urlInfo);
     }
 
     /**
