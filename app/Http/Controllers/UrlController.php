@@ -63,7 +63,7 @@ class UrlController extends Controller
             flash('Страница успешно добавлена')->success();
         }
 
-        $id = $this->urlRepository->findIdByName($id);
+        $id = $this->urlRepository->findIdByName($name);
 
         return redirect()->route('urls.show', ['id' => $id]);
     }
