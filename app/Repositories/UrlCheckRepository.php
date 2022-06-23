@@ -32,7 +32,7 @@ class UrlCheckRepository
      *
      * @return \Illuminate\Support\Collection<int, \stdClass>
      */
-    public function findById(int $id): \Illuminate\Support\Collection
+    public function findAllById(int $id): \Illuminate\Support\Collection
     {
         return DB::table('url_checks')->select('*')
             ->where('url_id', $id)
