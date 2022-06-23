@@ -24,7 +24,7 @@ class UrlCheckController extends Controller
     public function store(int $urlId): \Illuminate\Http\RedirectResponse
     {
         try {
-            $this->pageChecker->createCheck($urlId);           
+            $this->pageChecker->createCheck($urlId);    
             flash('Страница успешно проверена');
         } catch (\Exception $e) {
             flash($e->getMessage())->error();

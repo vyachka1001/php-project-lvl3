@@ -10,7 +10,7 @@ class UrlRepository
     /**
      * Returns oldest urls.
      * If count is more than records, returns all records. If there are no records, returns empty collection.
-     * @param int $urlPerPage Count of returning urls. 
+     * @param int $urlPerPage Count of returning urls.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
