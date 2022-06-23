@@ -9,7 +9,8 @@ class UrlRepository
 {
     /**
      * Returns oldest urls.
-     * @param int $urlPerPage Count of returning urls. If count is more than records, returns all records.
+     * If count is more than records, returns all records. If there are no records, returns empty collection.
+     * @param int $urlPerPage Count of returning urls. 
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -67,20 +68,19 @@ class UrlRepository
 
      /**
      * Returns record by corresponding id
-     * Returns empty collection, if there is no such id.
+     * Returns null, if there is no such id.
      *
      * @param int $id Corresponding id.
      *
-     * @return \Illuminate\Support\Collection<int, \stdClass>
+     * @return \stdClass|null
      */
-    public function findById(int $id): \Illuminate\Support\Collection
+    public function findById(int $id): ?\stdClass
     {
         $record = DB::table('urls')->select('*')
             ->where('id', $id)
             ->get();
-        dump(($record[0]));
 
-        return $record;
+        return $record[0] ?? null;
     }
 
     /**
