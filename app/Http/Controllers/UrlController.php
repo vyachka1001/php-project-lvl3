@@ -63,7 +63,7 @@ class UrlController extends Controller
             flash('Страница успешно добавлена')->success();
         }
 
-        $id = $this->urlRepository->findIdByName($name);
+        $id = $this->urlRepository->findIdByName($id);
 
         return redirect()->route('urls.show', ['id' => $id]);
     }
@@ -78,8 +78,12 @@ class UrlController extends Controller
     public function show(int $id): \Illuminate\View\View
     {
         $url = $this->urlRepository->findById($id);
-        $checks = $this->urlCheckRepository->findById($id);
+        if (empty($url)) {
+            abort(404);
+        }
 
-        return view('url.show', ['url' => $url[0], 'checks' => $checks]);
+        $checks = $this->urlCheckRepository->findAllById($id);
+
+        return view('url.show', ['url' => $url, 'checks' => $checks]);
     }
 }
